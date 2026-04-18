@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const SeriesLine = sequelize.define('SeriesLine',
+const SeriesLine = sequelize.define('series_line',
     {
         scene_id: {
             type: DataTypes.INTEGER,

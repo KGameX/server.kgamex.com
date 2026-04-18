@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const Locale = sequelize.define('Locale',
+const Locale = sequelize.define('locale',
     {
         id: {
             type: DataTypes.CHAR(2),

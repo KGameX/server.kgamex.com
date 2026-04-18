@@ -9,8 +9,7 @@ async function getUsers() {
 }
 
 async function getUserById(id) {
-    return await model.User.findOne({ 
-        where: { id: id },
+    return await model.User.findByPk(id, { 
         attributes: { exclude: ['password_hash'] }
     })
 }

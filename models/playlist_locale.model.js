@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const PlaylistLocale = sequelize.define('PlaylistLocale',
+const PlaylistLocale = sequelize.define('playlist_locale',
     {
         playlist_id: {
             type: DataTypes.CHAR(34),

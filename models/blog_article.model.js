@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const BlogArticle = sequelize.define('BlogArticle',
+const BlogArticle = sequelize.define('blog_article',
     {
         id: {
             type: DataTypes.CHAR(10),

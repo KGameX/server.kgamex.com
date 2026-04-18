@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const PasswordHistory = sequelize.define('PasswordHistory', 
+const PasswordHistory = sequelize.define('password_history', 
     {
         user_id: {
             type: DataTypes.CHAR(10),

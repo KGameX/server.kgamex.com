@@ -5,7 +5,11 @@ async function getAnswers() {
 }
 
 async function getAnswerByQuestionId(id) {
-    return await model.Answer.findOne({ where: { question_id: id } })
+    return await model.Answer.findByPk(id, {
+        include: [{
+            model: model.Question
+        }]
+    })
 }
 
 async function createAnswer(answerData) {

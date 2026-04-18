@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const BlogStatus = sequelize.define('BlogStatus',
+const BlogStatus = sequelize.define('blog_status',
     {
         id: {
             type: DataTypes.INTEGER,

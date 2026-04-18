@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const Video = sequelize.define('Video',
+const Video = sequelize.define('video',
     {
         id: {
             type: DataTypes.CHAR(11),

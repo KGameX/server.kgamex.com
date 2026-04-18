@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const Playlist = sequelize.define('Playlist',
+const Playlist = sequelize.define('playlist',
     {
         id: {
             type: DataTypes.CHAR(34),

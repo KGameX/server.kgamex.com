@@ -1,7 +1,7 @@
 const sequelize = require('../database')
 const { DataTypes } = require('sequelize')
 
-const SceneLocale = sequelize.define('SceneLocale',
+const SceneLocale = sequelize.define('scene_locale',
     {
         scene_id: {
             type: DataTypes.INTEGER,

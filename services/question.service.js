@@ -3,12 +3,35 @@ const { generateId } = require('../utils/idgen')
 
 async function getQuestions() {
     return await model.Question.findAll({
-        order: [['created_at', 'DESC']]
+        order: [['created_at', 'DESC']],
+        attributes: { exclude: ['user_id'] },
+        include: [{
+            model: model.User,
+            required: false
+        },
+    
+        {
+            model: model.Answer,
+            required: false,
+            attributes: { exclude: ['question_id'] }
+        }]
     })
 }
 
 async function getQuestionById(id) {
-    return await model.Question.findByPk(id)
+    return await model.Question.findByPk(id, {
+        attributes: { exclude: ['user_id'] },
+        include: [{
+            model: model.User,
+            required: false
+        },
+    
+        {
+            model: model.Answer,
+            required: false,
+            attributes: { exclude: ['question_id'] }
+        }]
+    })
 }
 
 async function createQuestion(questionData) {
