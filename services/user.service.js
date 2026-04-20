@@ -32,7 +32,8 @@ async function createUser(userData) {
     const id = await generateId(10, model.User)
     
     await model.User.create({
-        id,
+        id: id,
+        role_id: 1,
         ...userData
     })
 

@@ -7,6 +7,7 @@ async function getQuestions() {
         attributes: { exclude: ['user_id'] },
         include: [{
             model: model.User,
+            attributes: { exclude: ['password_hash'] },
             required: false
         },
     
@@ -23,6 +24,7 @@ async function getQuestionById(id) {
         attributes: { exclude: ['user_id'] },
         include: [{
             model: model.User,
+            attributes: { exclude: ['password_hash'] },
             required: false
         },
     

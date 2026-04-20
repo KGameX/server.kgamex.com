@@ -1,13 +1,32 @@
 const model = require('../models')
 
 async function getAnswers() {
-    return await model.Answer.findAll()
+    return await model.Answer.findAll({
+		order: [['created_at', 'DESC']],
+        attributes: { exclude: ['question_id'] },
+        include: [{
+            model: model.Question,
+            attributes: { exclude: ['user_id'] },
+            include: [{
+                model: model.User,
+                attributes: { exclude: ['password_hash'] },
+                required: false
+            }]
+        }]
+    })
 }
 
 async function getAnswerByQuestionId(id) {
     return await model.Answer.findByPk(id, {
+        attributes: { exclude: ['question_id'] },
         include: [{
-            model: model.Question
+            model: model.Question,
+            attributes: { exclude: ['user_id'] },
+            include: [{
+                model: model.User,
+                attributes: { exclude: ['password_hash'] },
+                required: false
+            }]
         }]
     })
 }
