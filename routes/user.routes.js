@@ -1,11 +1,11 @@
-const controller = require('../controllers/user.controller')
+const controller = require('../controllers')
 const express = require('express')
 
 const router = express.Router()
 
-router.get('/', controller.getUsers)
-router.get('/:id', controller.getUserById)
-router.get('/username/:username', controller.getUserByUsername)
-router.get('/email/:email', controller.getUserByEmail)
+router.get('/', controller.User.getUsers)
+router.get('/:id', controller.User.getUserById)
+router.get('/username/:username', controller.User.getUserByUsername)
+router.get('/email/:email', controller.User.getUserByEmail)
 
 module.exports = router

@@ -1,10 +1,10 @@
-const controller = require('../controllers/question.controller')
+const controller = require('../controllers')
 const express = require('express')
 
 const router = express.Router()
 
-router.get('/', controller.getQuestions)
-router.get('/:id', controller.getQuestionById)
-router.post('/', controller.createQuestion)
+router.get('/', controller.Question.getQuestions)
+router.get('/:id', controller.Question.getQuestionById)
+router.post('/', controller.Question.createQuestion)
 
 module.exports = router

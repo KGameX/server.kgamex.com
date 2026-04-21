@@ -1,8 +1,8 @@
-const service = require('../services/question.service')
+const service = require('../services')
 
 async function getQuestions(req, res) {
     try {
-        const questions = await service.getQuestions()
+        const questions = await service.Question.getQuestions()
         res.json(questions)
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -11,7 +11,7 @@ async function getQuestions(req, res) {
 
 async function getQuestionById(req, res) {
     try {
-        const question = await service.getQuestionById(req.params.id)
+        const question = await service.Question.getQuestionById(req.params.id)
 
         if (!question) {
             return res.status(404).json({ error: 'Question not found' })
@@ -25,7 +25,7 @@ async function getQuestionById(req, res) {
 
 async function createQuestion(req, res) {
     try {
-        const questionId = await service.createQuestion(req.body)
+        const questionId = await service.Question.createQuestion(req.body)
         res.status(201).json({ id: questionId })
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -34,7 +34,7 @@ async function createQuestion(req, res) {
 
 async function updateQuestion(req, res) {
     try {
-        const question = await service.updateQuestion(req.params.id, req.body)
+        const question = await service.Question.updateQuestion(req.params.id, req.body)
 
         if (!question) {
             return res.status(404).json({ error: 'Question not found' })
@@ -48,7 +48,7 @@ async function updateQuestion(req, res) {
 
 async function deleteQuestion(req, res) {
     try {
-        await service.deleteQuestion(req.params.id)
+        await service.Question.deleteQuestion(req.params.id)
         res.status(204).send()
     } catch (error) {
         res.status(500).json({ error: error.message })

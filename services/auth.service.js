@@ -15,6 +15,23 @@ async function checkAuth(token) {
             throw new Error('User not found')
         }
 
+        return user
+    } catch (err) {
+        throw new Error('Invalid token')
+    }
+}
+
+async function renewAuth(token) {
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const user = await model.User.findByPk(decoded.id, {
+            attributes: { exclude: ['password_hash'] }
+        })
+
+        if (!user) {
+            throw new Error('User not found')
+        }
+
         const newToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 
         return { user, newToken }
@@ -67,6 +84,7 @@ async function signup(username, email, displayName, password) {
 
 module.exports = {
     checkAuth,
+    renewAuth,
     login,
     signup
 }
