@@ -1,20 +1,12 @@
 const express = require("express")
 const app = express()
 
-const allowedOrigins = (process.env.CORS_ORIGINS || "").split(',').map(origin => origin.trim()).filter(Boolean)
-
 app.use(express.json())
 
 app.use((req, res, next) => {
-    const requestOrigin = req.headers.origin
-
-    if (!requestOrigin || allowedOrigins.includes(requestOrigin)) {
-        res.header('Access-Control-Allow-Origin', requestOrigin || allowedOrigins[0] || '')
-    }
-
+    res.header('Access-Control-Allow-Origin', process.env.CORS_ORIGIN)
     res.header('Access-Control-Allow-Credentials', 'true')
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
-    res.header('Vary', 'Origin')
     if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
         return res.status(200).json({})
