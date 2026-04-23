@@ -10,6 +10,9 @@ const Video = sequelize.define('video',
         duration: {
             type: DataTypes.INTEGER
         },
+        thumbnail_url: {
+            type: DataTypes.STRING
+        },
         isShort: {
             type: DataTypes.BOOLEAN
         },

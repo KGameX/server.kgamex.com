@@ -9,7 +9,7 @@ const cookieOptions = {
 
 async function checkAuth(req, res) {
     try {
-        const token = req.headers.cookie.split('token=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
         res.json(user)
     } catch (error) {
@@ -19,7 +19,7 @@ async function checkAuth(req, res) {
 
 async function renewAuth(req, res) {
     try {
-        const token = req.headers.cookie.split('token=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
         const { user, newToken } = await service.Auth.renewAuth(token)
         res.cookie('token', newToken, cookieOptions)
         res.json(user)
