@@ -4,27 +4,27 @@ const { generateId } = require('../utils/idgen')
 
 async function getUsers() {
     return await model.User.findAll({ 
-        attributes: { exclude: ['password_hash'] }
+        attributes: { exclude: ['email', 'password_hash'] }
     })
 }
 
 async function getUserById(id) {
     return await model.User.findByPk(id, { 
-        attributes: { exclude: ['password_hash'] }
+        attributes: { exclude: ['email', 'password_hash'] }
     })
 }
 
 async function getUserByUsername(username) {
     return await model.User.findOne({ 
         where: { username: username }, 
-        attributes: { exclude: ['password_hash'] } 
+        attributes: { exclude: ['email', 'password_hash'] } 
     })
 }
 
 async function getUserByEmail(email) {
     return await model.User.findOne({ 
         where: { email: email }, 
-        attributes: { exclude: ['password_hash'] } 
+        attributes: { exclude: ['email', 'password_hash'] } 
     })
 }
 

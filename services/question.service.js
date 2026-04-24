@@ -7,7 +7,7 @@ async function getQuestions() {
         attributes: { exclude: ['user_id'] },
         include: [{
             model: model.User,
-            attributes: { exclude: ['password_hash'] },
+            attributes: { exclude: ['email', 'password_hash'] },
             required: false
         },
     
@@ -24,7 +24,7 @@ async function getQuestionById(id) {
         attributes: { exclude: ['user_id'] },
         include: [{
             model: model.User,
-            attributes: { exclude: ['password_hash'] },
+            attributes: { exclude: ['email', 'password_hash'] },
             required: false
         },
     
@@ -60,9 +60,9 @@ async function updateQuestion(id, updateData) {
 }
 
 async function deleteQuestion(id) {
-    const answers = await model.Answer.findAll({ where: { question_id: id } })
+    const answer = await model.Answer.findOne({ where: { question_id: id } })
 
-    for (const answer of answers) {
+    if (answer) {
         await answer.destroy()
     }
 
