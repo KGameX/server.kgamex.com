@@ -2,8 +2,8 @@ const service = require('../services')
 
 async function getQuestions(req, res) {
     try {
-        const questions = await service.Question.getQuestions()
-        res.json(questions)
+        const data = await service.Question.getQuestions(parseInt(req.query.page), parseInt(req.query.itemsPerPage))
+        res.json(data)
     } catch (error) {
         res.status(500).json({ error: error.message })
     }

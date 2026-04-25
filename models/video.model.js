@@ -13,10 +13,10 @@ const Video = sequelize.define('video',
         thumbnail_url: {
             type: DataTypes.STRING
         },
-        isShort: {
+        is_short: {
             type: DataTypes.BOOLEAN
         },
-        created_at: {
+        published_at: {
             type: DataTypes.DATE,
         }
     },

@@ -1,10 +1,18 @@
 const model = require('../models')
 const { generateId } = require('../utils/idgen')
 
-async function getQuestions() {
-    return await model.Question.findAll({
+async function getQuestions(page, itemsPerPage) {
+    const metadata = {
+        items_per_page: itemsPerPage || 50,
+        page: page || 1,
+        total: await model.Question.count(),
+    }
+
+    const questions = await model.Question.findAll({
         order: [['created_at', 'DESC']],
         attributes: { exclude: ['user_id'] },
+        limit: itemsPerPage || 50,
+        offset: page ? (page - 1) * (itemsPerPage || 50) : 0,
         include: [{
             model: model.User,
             attributes: { exclude: ['email', 'password_hash'] },
@@ -17,6 +25,8 @@ async function getQuestions() {
             attributes: { exclude: ['question_id'] }
         }]
     })
+
+    return { metadata, questions }
 }
 
 async function getQuestionById(id) {
