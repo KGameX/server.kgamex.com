@@ -25,7 +25,7 @@ async function getQuestionById(req, res) {
 
 async function createQuestion(req, res) {
     try {
-        const questionBody = req.body.split('\n').map(line => line.trim()).filter(line => line.length > 0).join('\n')
+        req.body.question = req.body.question.split('\n').map(line => line.trim()).filter(line => line.length > 0).join('\n')
         const questionId = await service.Question.createQuestion(req.body)
         res.status(201).json({ id: questionId })
     } catch (error) {
