@@ -2,17 +2,20 @@ const model = require('../models')
 const { generateId } = require('../utils/idgen')
 
 async function getQuestions(page, itemsPerPage) {
+    if (!page) page = 1
+    if (!itemsPerPage) itemsPerPage = 50
+    
     const metadata = {
-        items_per_page: itemsPerPage || 50,
-        page: page || 1,
-        total: await model.Question.count(),
+        items_per_page: itemsPerPage,
+        page: page,
+        total: await model.Question.count()
     }
 
     const questions = await model.Question.findAll({
         order: [['created_at', 'DESC']],
         attributes: { exclude: ['user_id'] },
-        limit: itemsPerPage || 50,
-        offset: page ? (page - 1) * (itemsPerPage || 50) : 0,
+        limit: itemsPerPage,
+        offset: (page - 1) * itemsPerPage,
         include: [{
             model: model.User,
             attributes: { exclude: ['email', 'password_hash'] },
