@@ -14,15 +14,21 @@ app.use((req, res, next) => {
     next();
 });
 
-const authRoutes = require('./routes/auth.routes')
-const userRoutes = require('./routes/user.routes')
-const questionRoutes = require('./routes/question.routes')
 const answerRoutes = require('./routes/answer.routes')
+const authRoutes = require('./routes/auth.routes')
+const localeRoutes = require('./routes/locale.routes')
+const questionRoutes = require('./routes/question.routes')
+const uptimeRoutes = require('./routes/uptime.routes')
+const userRoutes = require('./routes/user.routes')
+const videoRoutes = require('./routes/video.routes')
 
-app.use('/auth', authRoutes)
-app.use('/user', userRoutes)
-app.use('/question', questionRoutes)
 app.use('/answer', answerRoutes)
+app.use('/auth', authRoutes)
+app.use('/locale', localeRoutes)
+app.use('/question', questionRoutes)
+app.use('/uptime', uptimeRoutes)
+app.use('/user', userRoutes)
+app.use('/video', videoRoutes)
 
 app.listen(3000, function(err) {
 	if (err) console.log(err)

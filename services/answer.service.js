@@ -9,7 +9,7 @@ async function getAnswers() {
             attributes: { exclude: ['user_id'] },
             include: [{
                 model: model.User,
-                attributes: { exclude: ['password_hash'] },
+                attributes: ['id', 'username', 'display_name'],
                 required: false
             }]
         }]
@@ -24,7 +24,7 @@ async function getAnswerByQuestionId(id) {
             attributes: { exclude: ['user_id'] },
             include: [{
                 model: model.User,
-                attributes: { exclude: ['password_hash'] },
+                attributes: ['id', 'username', 'display_name'],
                 required: false
             }]
         }]

@@ -18,7 +18,7 @@ async function getQuestions(page, itemsPerPage) {
         offset: (page - 1) * itemsPerPage,
         include: [{
             model: model.User,
-            attributes: { exclude: ['email', 'password_hash'] },
+            attributes: ['id', 'username', 'display_name'] ,
             required: false
         },
     
@@ -37,7 +37,7 @@ async function getQuestionById(id) {
         attributes: { exclude: ['user_id'] },
         include: [{
             model: model.User,
-            attributes: { exclude: ['email', 'password_hash'] },
+            attributes: ['id', 'username', 'display_name'],
             required: false
         },
     

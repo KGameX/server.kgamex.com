@@ -1,15 +1,41 @@
 const model = require("../models")
 
-async function getVideos() {
-    return await model.Video.findAll()
+async function getVideos(page, itemsPerPage, isShort) {
+    if (!page) page = 1
+    if (!itemsPerPage) itemsPerPage = 50
+    if (!isShort) isShort = false
+
+    const metadata = {
+        items_per_page: itemsPerPage,
+        page: page,
+        total: await model.Video.count({ where: { is_short: isShort } })
+    }
+
+    const data = await model.Video.findAll({
+        order: [['published_at', 'DESC']],
+        limit: itemsPerPage,
+        offset: (page - 1) * itemsPerPage,
+        where: { is_short: isShort },
+        include: {
+            model: model.VideoLocale,
+            attributes: {
+                exclude: ['video_id']
+            }
+        }
+    })
+
+    return { metadata, data }
 }
 
 async function getVideoById(id) {
-    return await model.Video.findByPk(id)
-}
-
-async function addVideo(videoData) {
-    return await model.Video.create(videoData)
+    return await model.Video.findByPk(id, {
+        include: {
+            model: model.VideoLocale,
+            attributes: {
+                exclude: ['video_id']
+            }
+        }
+    })
 }
 
 async function getVideosFromYouTubeApi() {
@@ -17,11 +43,11 @@ async function getVideosFromYouTubeApi() {
         attributes: ['id']
     })
 
-    let pageToken, response, data
+    let nextPageToken, response, data
     let fetchedVideoIds = []
     while (true) {
-        if (pageToken) {
-            response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${process.env.YOUTUBE_CHANNEL_ID}&pageToken=${pageToken}&key=${process.env.YOUTUBE_API_KEY}`)
+        if (nextPageToken) {
+            response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${process.env.YOUTUBE_CHANNEL_ID}&pageToken=${nextPageToken}&key=${process.env.YOUTUBE_API_KEY}`)
         } else {
             response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${process.env.YOUTUBE_CHANNEL_ID}&key=${process.env.YOUTUBE_API_KEY}`)
         }
@@ -33,7 +59,7 @@ async function getVideosFromYouTubeApi() {
         }
 
         if (data.nextPageToken) {
-            pageToken = data.nextPageToken
+            nextPageToken = data.nextPageToken
         } else {
             break
         }
@@ -86,6 +112,5 @@ function parseDuration(duration) {
 module.exports = {
     getVideos,
     getVideoById,
-    addVideo,
     getVideosFromYouTubeApi
 }

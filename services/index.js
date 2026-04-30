@@ -1,14 +1,14 @@
 const User = require('./user.service')
 const Auth = require('./auth.service')
 // const Role = require('./role.service')
-// const Locale = require('./locale.service')
+const Locale = require('./locale.service')
 // const BlogStatus = require('./blog_status.service')
 // const BlogArticle = require('./blog_article.service')
 // const BlogLocale = require('./blog_locale.service')
 // const BlogComment = require('./blog_comment.service')
 const Question = require('./question.service')
 const Answer = require('./answer.service')
-// const Video = require('./video.service')
+const Video = require('./video.service')
 // const VideoLocale = require('./video_locale.service')
 // const PasswordHistory = require('./password_history.service')
 // const Playlist = require('./playlist.service')
@@ -24,14 +24,14 @@ module.exports = {
     User,
     Auth,
     // Role,
-    // Locale,
+    Locale,
     // BlogStatus,
     // BlogArticle,
     // BlogLocale,
     // BlogComment,
     Question,
     Answer,
-    // Video,
+    Video,
     // VideoLocale,
     // PasswordHistory,
     // Playlist,
