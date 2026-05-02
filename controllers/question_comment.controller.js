@@ -19,6 +19,8 @@ async function createComment(req, res) {
             return res.status(403).json({ error: 'Forbidden' })
         }
         
+        req.body.body = req.body.body.split('\n').map(line => line.trim()).filter(line => line.length > 0).join('\n')
+        
         const comment = await service.QuestionComment.createComment({
             user_id: user.id, 
             ...req.body
