@@ -11,7 +11,7 @@ async function getVideos(page, itemsPerPage, isShort) {
         total: await model.Video.count({ where: { is_short: isShort } })
     }
 
-    const data = await model.Video.findAll({
+    const videos = await model.Video.findAll({
         order: [['published_at', 'DESC']],
         limit: itemsPerPage,
         offset: (page - 1) * itemsPerPage,
@@ -24,7 +24,7 @@ async function getVideos(page, itemsPerPage, isShort) {
         }
     })
 
-    return { metadata, data }
+    return { metadata, videos }
 }
 
 async function getVideoById(id) {

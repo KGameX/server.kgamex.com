@@ -7,6 +7,7 @@ const Locale = require('./locale.service')
 // const BlogLocale = require('./blog_locale.service')
 // const BlogComment = require('./blog_comment.service')
 const Question = require('./question.service')
+const QuestionComment = require('./question_comment.service')
 const Answer = require('./answer.service')
 const Video = require('./video.service')
 // const VideoLocale = require('./video_locale.service')
@@ -30,6 +31,7 @@ module.exports = {
     // BlogLocale,
     // BlogComment,
     Question,
+    QuestionComment,
     Answer,
     Video,
     // VideoLocale,

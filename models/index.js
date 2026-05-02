@@ -6,6 +6,7 @@ const BlogArticle = require('./blog_article.model')
 const BlogLocale = require('./blog_locale.model')
 const BlogComment = require('./blog_comment.model')
 const Question = require('./question.model')
+const QuestionComment = require('./question_comment.model')
 const Answer = require('./answer.model')
 const Video = require('./video.model')
 const VideoLocale = require('./video_locale.model')
@@ -51,6 +52,13 @@ Question.belongsTo(User, { foreignKey: 'user_id' })
 
 Question.hasOne(Answer, { foreignKey: 'question_id' })
 Answer.belongsTo(Question, { foreignKey: 'question_id' })
+
+// Question Comment associations
+User.hasMany(QuestionComment, { foreignKey: 'user_id' })
+QuestionComment.belongsTo(User, { foreignKey: 'user_id' })
+
+Question.hasMany(QuestionComment, { foreignKey: 'question_id' })
+QuestionComment.belongsTo(Question, { foreignKey: 'question_id' })
 
 // Video associations
 Video.hasMany(VideoLocale, { foreignKey: 'video_id' })
@@ -103,6 +111,7 @@ module.exports = {
     BlogLocale,
     BlogComment,
     Question,
+    QuestionComment,
     Answer,
     Video,
     VideoLocale,
