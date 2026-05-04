@@ -73,12 +73,6 @@ async function updateQuestion(id, updateData) {
 }
 
 async function deleteQuestion(id) {
-    const answer = await model.Answer.findOne({ where: { question_id: id } })
-
-    if (answer) {
-        await answer.destroy()
-    }
-
     const question = await model.Question.findByPk(id)
 
     if (!question) {

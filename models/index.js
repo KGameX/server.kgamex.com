@@ -26,78 +26,78 @@ const sequelize = require('../database')
 Role.hasMany(User, { foreignKey: 'role_id' })
 User.belongsTo(Role, { foreignKey: 'role_id' })
 
-User.hasMany(PasswordHistory, { foreignKey: 'user_id' })
+User.hasMany(PasswordHistory, { foreignKey: 'user_id', onDelete: 'CASCADE' })
 PasswordHistory.belongsTo(User, { foreignKey: 'user_id' })
 
 // Blog Article associations
 BlogStatus.hasMany(BlogArticle, { foreignKey: 'status_id' })
 BlogArticle.belongsTo(BlogStatus, { foreignKey: 'status_id' })
 
-BlogArticle.hasMany(BlogLocale, { foreignKey: 'article_id' })
+BlogArticle.hasMany(BlogLocale, { foreignKey: 'article_id', onDelete: 'CASCADE' })
 BlogLocale.belongsTo(BlogArticle, { foreignKey: 'article_id' })
 
-Locale.hasMany(BlogLocale, { foreignKey: 'locale_id' })
+Locale.hasMany(BlogLocale, { foreignKey: 'locale_id', onDelete: 'CASCADE' })
 BlogLocale.belongsTo(Locale, { foreignKey: 'locale_id' })
 
 // Blog Comment associations
-User.hasMany(BlogComment, { foreignKey: 'user_id' })
+User.hasMany(BlogComment, { foreignKey: 'user_id', onDelete: 'CASCADE' })
 BlogComment.belongsTo(User, { foreignKey: 'user_id' })
 
-BlogArticle.hasMany(BlogComment, { foreignKey: 'article_id' })
+BlogArticle.hasMany(BlogComment, { foreignKey: 'article_id', onDelete: 'CASCADE' })
 BlogComment.belongsTo(BlogArticle, { foreignKey: 'article_id' })
 
 // Question associations
-User.hasMany(Question, { foreignKey: 'user_id' })
+User.hasMany(Question, { foreignKey: 'user_id', onDelete: 'SET NULL' })
 Question.belongsTo(User, { foreignKey: 'user_id' })
 
-Question.hasOne(Answer, { foreignKey: 'question_id' })
+Question.hasOne(Answer, { foreignKey: 'question_id', onDelete: 'CASCADE' })
 Answer.belongsTo(Question, { foreignKey: 'question_id' })
 
 // Question Comment associations
-User.hasMany(QuestionComment, { foreignKey: 'user_id' })
+User.hasMany(QuestionComment, { foreignKey: 'user_id', onDelete: 'CASCADE' })
 QuestionComment.belongsTo(User, { foreignKey: 'user_id' })
 
-Question.hasMany(QuestionComment, { foreignKey: 'question_id' })
+Question.hasMany(QuestionComment, { foreignKey: 'question_id', onDelete: 'CASCADE' })
 QuestionComment.belongsTo(Question, { foreignKey: 'question_id' })
 
 // Video associations
-Video.hasMany(VideoLocale, { foreignKey: 'video_id' })
+Video.hasMany(VideoLocale, { foreignKey: 'video_id', onDelete: 'CASCADE' })
 VideoLocale.belongsTo(Video, { foreignKey: 'video_id' })
 
-Locale.hasMany(VideoLocale, { foreignKey: 'locale_id' })
+Locale.hasMany(VideoLocale, { foreignKey: 'locale_id', onDelete: 'CASCADE' })
 VideoLocale.belongsTo(Locale, { foreignKey: 'locale_id' })
 
-Video.hasMany(PlaylistLine, { foreignKey: 'video_id' })
+Video.hasMany(PlaylistLine, { foreignKey: 'video_id', onDelete: 'CASCADE' })
 PlaylistLine.belongsTo(Video, { foreignKey: 'video_id' })
 
 // Playlist associations
-Playlist.hasMany(PlaylistLine, { foreignKey: 'playlist_id' })
+Playlist.hasMany(PlaylistLine, { foreignKey: 'playlist_id', onDelete: 'CASCADE' })
 PlaylistLine.belongsTo(Playlist, { foreignKey: 'playlist_id' })
 
-Playlist.hasMany(PlaylistLocale, { foreignKey: 'playlist_id' })
+Playlist.hasMany(PlaylistLocale, { foreignKey: 'playlist_id', onDelete: 'CASCADE' })
 PlaylistLocale.belongsTo(Playlist, { foreignKey: 'playlist_id' })
 
-Locale.hasMany(PlaylistLocale, { foreignKey: 'locale_id' })
+Locale.hasMany(PlaylistLocale, { foreignKey: 'locale_id', onDelete: 'CASCADE' })
 PlaylistLocale.belongsTo(Locale, { foreignKey: 'locale_id' })
 
 // Scene associations
-Scene.hasMany(SceneLocale, { foreignKey: 'scene_id' })
+Scene.hasMany(SceneLocale, { foreignKey: 'scene_id', onDelete: 'CASCADE' })
 SceneLocale.belongsTo(Scene, { foreignKey: 'scene_id' })
 
-Locale.hasMany(SceneLocale, { foreignKey: 'locale_id' })
+Locale.hasMany(SceneLocale, { foreignKey: 'locale_id', onDelete: 'CASCADE' })
 SceneLocale.belongsTo(Locale, { foreignKey: 'locale_id' })
 
-Scene.hasMany(SeriesLine, { foreignKey: 'scene_id' })
+Scene.hasMany(SeriesLine, { foreignKey: 'scene_id', onDelete: 'CASCADE' })
 SeriesLine.belongsTo(Scene, { foreignKey: 'scene_id' })
 
 // Series associations
-Series.hasMany(SeriesLocale, { foreignKey: 'series_id' })
+Series.hasMany(SeriesLocale, { foreignKey: 'series_id', onDelete: 'CASCADE' })
 SeriesLocale.belongsTo(Series, { foreignKey: 'series_id' })
 
-Locale.hasMany(SeriesLocale, { foreignKey: 'locale_id' })
+Locale.hasMany(SeriesLocale, { foreignKey: 'locale_id', onDelete: 'CASCADE' })
 SeriesLocale.belongsTo(Locale, { foreignKey: 'locale_id' })
 
-Series.hasMany(SeriesLine, { foreignKey: 'series_id' })
+Series.hasMany(SeriesLine, { foreignKey: 'series_id', onDelete: 'CASCADE' })
 SeriesLine.belongsTo(Series, { foreignKey: 'series_id' })
 
 sequelize.sync({ alter: true })
