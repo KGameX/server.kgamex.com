@@ -11,7 +11,6 @@ async function getCommentsByQuestionId(req, res) {
 
 async function createComment(req, res) {
     try {
-        console.log(req.body)
         const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
 
