@@ -31,13 +31,13 @@ async function getUserByEmail(email) {
 async function createUser(userData) {
     const id = await generateId(10, model.User)
     
-    await model.User.create({
+    const user = await model.User.create({
         id: id,
         role_id: 1,
         ...userData
     })
 
-    return id
+    return user.toJSON()
 }
 
 async function updateUser(id, updateData) {

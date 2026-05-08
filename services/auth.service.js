@@ -59,9 +59,9 @@ async function login(login, password) {
     if (!passwordMatch) {
         throw new Error('Invalid password')
     }
-    
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 
+    user.password_hash = undefined    
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30d' })
     return { user, token }
 }
 
@@ -76,9 +76,7 @@ async function signup(username, email, displayName, password) {
     })
 
     user.password_hash = undefined
-
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30d' })
-
     return { user, token }
 }
 

@@ -79,7 +79,7 @@ async function deleteUser(req, res) {
 
         await service.User.deleteUser(user.id)
         
-        res.cookie('token', '', { ...cookieOptions, maxAge: 0 })
+        res.cookie('token', '', { httpOnly: true, maxAge: 0, sameSite: 'none', secure: true })
         res.status(204).send()
     } catch (error) {
         console.error(error)
