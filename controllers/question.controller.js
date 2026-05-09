@@ -49,9 +49,23 @@ async function updateQuestion(req, res) {
 
 async function deleteQuestion(req, res) {
     try {
+        const question = await service.Question.getQuestionById(req.params.id)
+
+        if (!question) {
+            return res.status(404).json({ error: 'Question not found' })
+        }
+
+        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
+        const user = await service.Auth.checkAuth(token)
+
+        if (!user || (user.id !== question.user?.id && user.role_id < 3)) {
+            return res.status(403).json({ error: 'Forbidden' })
+        }
+
         await service.Question.deleteQuestion(req.params.id)
         res.status(204).send()
     } catch (error) {
+        console.error('Failed to delete question : ', error)
         res.status(500).json({ error: error.message })
     }
 }
