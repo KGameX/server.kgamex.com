@@ -40,6 +40,25 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
+        let usernameExists = false
+        let emailExists = false
+
+        let userByUsername = await service.User.getUserByUsername(req.body.username)
+        if (userByUsername) {
+            usernameExists = true
+        }
+
+        if (req.body.email) {
+            let userByEmail = await service.User.getUserByEmail(req.body.email)
+            if (userByEmail) {
+                emailExists = true
+            }
+        }
+
+        if (usernameExists || emailExists) {
+            return res.status(409).json({ username_exists: usernameExists, email_exists: emailExists })
+        }
+
         const { user, token } = await service.Auth.signup(req.body.username, req.body.email, req.body.displayName, req.body.password)
         res.cookie('token', token, cookieOptions)
         res.json(user)
