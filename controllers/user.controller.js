@@ -28,7 +28,7 @@ async function updateUser(req, res) {
         let usernameExists = false
         let emailExists = false
 
-        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.trim().startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
 
         if (!user) {
@@ -63,7 +63,7 @@ async function updateUser(req, res) {
 
 async function deleteUser(req, res) {
     try {
-        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.trim().startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
 
         if (!user) {

@@ -55,7 +55,7 @@ async function deleteQuestion(req, res) {
             return res.status(404).json({ error: 'Question not found' })
         }
 
-        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.trim().startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
 
         if (!user || (user.id !== question.user?.id && user.role_id < 3)) {

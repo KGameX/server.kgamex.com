@@ -25,7 +25,7 @@ async function getAnswerByQuestionId(req, res) {
 
 async function createAnswer(req, res) {
     try {
-        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.trim().startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
 
         if (!user || user.role_id < 3) {
@@ -41,7 +41,7 @@ async function createAnswer(req, res) {
 
 async function updateAnswer(req, res) {
     try {
-        const token = req.headers.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1]
+        const token = req.headers.cookie.split(';').find(row => row.trim().startsWith('token=')).split('=')[1]
         const user = await service.Auth.checkAuth(token)
 
         if (!user || user.role_id < 3) {
